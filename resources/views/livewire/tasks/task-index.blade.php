@@ -1,45 +1,48 @@
 <!-- Form container with max-width: md and centered -->
 <div class="max-w-md mx-auto p-4 bg-white rounded shadow-md">
-    <form>
+    <form wire:submit="save">
         <!-- Title input field -->
         <div class="mb-4">
-            <x-input-label for="title" value="Title" />
-            <x-text-input id="title" />
+            <x-label for="title" value="Title" />
+            <x-input id="title" wire:model="title" />
         </div>
 
         <!-- Slug input field -->
         <div class="mb-4">
-            <x-input-label for="slug" value="Slug" />
-            <x-text-input id="slug" />
+            <x-label for="slug" value="Slug" />
+            <x-input id="slug" wire:model="slug" />
         </div>
 
         <!-- Description textarea -->
         <div class="mb-4">
-            <x-input-label for="description" value="Deskripsi" />
-            <x-text-area id="description" />
+            <x-label for="description" value="Deskripsi" />
+            <x-textarea id="description" wire:model="description" />
         </div>
 
         <!-- Status select field -->
         <div class="mb-4">
-            <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Status</label>
-            <select id="status"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                <option value="">Select status</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-            </select>
+            <x-label for="status" value="Status" />
+            <x-select id="status" wire:model="status">
+                @foreach (\App\Enums\StatusType::cases() as $status)
+                    <option value="{{ $status->value }}">{{ $status->name }}</option>
+                @endforeach
+            </x-select>
         </div>
 
         <!-- Priority select field -->
         <div class="mb-4">
-            <label for="priority" class="block text-gray-700 text-sm font-bold mb-2">Priority</label>
-            <select id="priority"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                <option value="">Select priority</option>
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
-            </select>
+            <x-label for="prioruty" value="Priority" />
+            <x-select id="priority" wire:model="priority">
+                @foreach (\App\Enums\PriorityType::cases() as $priority)
+                    <option value="{{ $priority->value }}">{{ $priority->name }}</option>
+                @endforeach
+            </x-select>
+        </div>
+
+        <!-- Deadline -->
+        <div class="mb-4">
+            <x-label for="deadline" value="Deadline" />
+            <x-input type="date" id="deadline" wire:model="deadline" />
         </div>
 
         <!-- Submit button -->
